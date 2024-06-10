@@ -1,0 +1,1 @@
+[{"title":"Producto 10","description":"Descripcion del producto 10","price":10,"thumbnail":"ruta10.jpg","code":"10mi3","stock":10,"status":true,"category":"category 10","id":1}]
