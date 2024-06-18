@@ -1,0 +1,13 @@
+[
+  {
+    "title": "Prod 1",
+    "description": "desc prod 3",
+    "price": 6,
+    "thumbnail": "",
+    "code": "asdgasssd",
+    "stock": 1,
+    "status": true,
+    "category": "category 1",
+    "id": 1
+  }
+]

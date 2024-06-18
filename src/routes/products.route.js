@@ -5,9 +5,14 @@ const routerProd = Router();
 const productManager = new ProductManager();
 
 routerProd.get("/",async (req,res) => {
-    const limit = parseInt(req.query.limit);
-    const productos = await productManager.getProducts(limit);
-    res.status(200).send(productos)
+    try {
+        const limit = parseInt(req.query.limit);
+        const productos = await productManager.getProducts(limit);
+        res.status(200).send(productos)
+    } catch(error){
+        console.error("Se ha producido un erro al obtener los productos",error);
+        res.status(500).send({error: "Error de servidor"})
+    }
 });
 
 routerProd.get("/:pid", async (req,res) => {

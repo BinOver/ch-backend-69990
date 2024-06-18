@@ -1,7 +1,7 @@
 import {promises as fs} from "fs";
 
 export class ProductManager {
-    static path = "./data/products.js"
+    static path = "./data/products.json"
     static lastUid=0;
     
     constructor(){
@@ -20,7 +20,7 @@ export class ProductManager {
             product.id = ++ProductManager.lastUid;
             products.push(product);
         //agregar producto a array de productos
-        await fs.writeFile(ProductManager.path,JSON.stringify(products));
+        await fs.writeFile(ProductManager.path,JSON.stringify(products,null,2));
         return true;
     }   
 
