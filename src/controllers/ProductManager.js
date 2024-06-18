@@ -2,22 +2,37 @@ import {promises as fs} from "fs";
 
 export class ProductManager {
     static path = "./data/products.json"
-    static lastUid=0;
+    static lastPid=0;
     
     constructor(){
         this.products = [];
+        this.readProducts();
+    }
+
+
+    async readProducts() {
+        try {
+            const prodData = await fs.readFile(ProductManager.path);
+            this.products = JSON.parse(prodData);
+            if (this.products.length > 0) {
+                ProductManager.lastPid = Math.max(...this.products.map(product => product.id));
+            }
+        } catch (error) {
+            console.error("Error al cargar los carritos desde el archivo", error)
+            await this.saveCarts();
+        }
     }
 
     async addProduct(product){
         const products = JSON.parse(await fs.readFile(ProductManager.path,"utf8"));
         
         //validar code unico
-        if(products.some(item =>item.code === code)){
+        if(products.some(item =>item.code === product.code)){
             console.error("El dato de code debe ser unico");
             return false;
         } else
         //Agregar ID al objeto product
-            product.id = ++ProductManager.lastUid;
+            product.id = ++ProductManager.lastPid;
             products.push(product);
         //agregar producto a array de productos
         await fs.writeFile(ProductManager.path,JSON.stringify(products,null,2));
@@ -46,11 +61,12 @@ export class ProductManager {
     }
 
     async deleteProduct(id) {
-        const products = JSON.parse(await fs.readFile.apply(ProductManager.path, "utf8"));
+        const products = JSON.parse(await fs.readFile(ProductManager.path, "utf8"));
         const isID = products.findIndex((product) => product.id === parseInt(id));
         if (isID != -1) {
             const modProducts = products.filter((prod) => prod.id !== parseInt(id));
             console.log(modProducts);
+            await fs.writeFile(ProductManager.path,JSON.stringify(modProducts,null,2));
             return true;
         } else {
             return false

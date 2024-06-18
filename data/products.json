@@ -1,13 +1,24 @@
 [
   {
-    "title": "Prod 1",
+    "title": "Prod 3",
     "description": "desc prod 3",
     "price": 6,
     "thumbnail": "",
-    "code": "asdgasssd",
+    "code": "2asdgassd",
     "stock": 1,
     "status": true,
-    "category": "category 1",
-    "id": 1
+    "category": "category 3",
+    "id": 2
+  },
+  {
+    "title": "Prod 4",
+    "description": "desc prod 4",
+    "price": 34,
+    "thumbnail": "",
+    "code": "2adgassd",
+    "stock": 100,
+    "status": true,
+    "category": "category 4",
+    "id": 3
   }
 ]
