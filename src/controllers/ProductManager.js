@@ -37,7 +37,29 @@ export class ProductManager {
         //agregar producto a array de productos
         await fs.writeFile(ProductManager.path,JSON.stringify(products,null,2));
         return true;
-    }   
+    }
+
+    async updateProduct(id, product){
+        try {
+            const products = JSON.parse(await fs.readFile(ProductManager.path,"utf8"));
+            const index = products.findIndex(item => item.id === parseInt(id));
+
+            console.log (products);
+            console.log(id);
+            console.log(index);
+
+            if (index != -1){
+                products[index] = product;
+                await fs.writeFile(ProductManager.path,JSON.stringify(products,null,2));
+                console.log("Producto actualizado" );
+            } else {
+                console.log("No se encontro el producto");
+            }
+        } catch (error) {
+            console.log("Error al actualizar el producto");
+            throw error;
+        }
+    }
 
     async getProducts(limit){
         const products = JSON.parse(await fs.readFile(ProductManager.path, "utf8"));
