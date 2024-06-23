@@ -1,7 +1,7 @@
 import {promises as fs} from "fs";
 
 export class CartManager {
-    static path = "./data/carts.json";
+    static path = "./src/models/carts.json";
     static lastCid = 0;
 
     constructor() {
@@ -65,5 +65,6 @@ export class CartManager {
         await this.saveCarts();
         return cart;
     }
-
 }
+
+export default CartManager;

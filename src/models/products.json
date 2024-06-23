@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Prod 1",
+    "description": "desc prod 1",
+    "price": 345,
+    "thumbnail": "",
+    "code": "adgassd",
+    "stock": 12,
+    "status": true,
+    "category": "category 1",
+    "id": 1
+  },
+  {
+    "title": "Prod 2",
+    "description": "desc prod 2",
+    "price": 45,
+    "thumbnail": "",
+    "code": "adassd",
+    "stock": 133,
+    "status": true,
+    "category": "category 2",
+    "id": 2
+  },
+  {
+    "title": "Prod 3",
+    "description": "desc prod 3",
+    "price": 85,
+    "thumbnail": "",
+    "code": "zdassjd",
+    "stock": 133,
+    "status": true,
+    "category": "category 3",
+    "id": 3
+  }
+]

@@ -1,7 +1,7 @@
 import {promises as fs} from "fs";
 
 export class ProductManager {
-    static path = "./data/products.json"
+    static path = "./src/models/products.json"
     static lastPid=0;
     
     constructor(){
@@ -78,7 +78,7 @@ export class ProductManager {
         if(!getProduct){
             return false;
         }else{
-           return getProduct;
+            return getProduct;
         }
     }
 
@@ -95,3 +95,5 @@ export class ProductManager {
         }
     }
 }
+
+export default ProductManager;
