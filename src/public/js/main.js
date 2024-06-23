@@ -20,7 +20,7 @@ const renderProducts = (data) => {
                             <p>Codigo: ${item.code}</p>
                             <p>Stock: ${item.stock}</p>
                             <p>Categoria: ${item.category}</p>
-                            <button> Eliminar </button>
+                            <button class="btn btn-primary"> Eliminar </button>
                         `
         containerProducts.appendChild(card);
         card.querySelector('button').addEventListener('click',() => {
@@ -47,8 +47,8 @@ const addProduct = () => {
         thumbnail: document.getElementById("thumbnail").value,
         code: document.getElementById("code").value,
         stock: document.getElementById("stock").value,
-        status: document.getElementById("category").value,
-        category: document.getElementById("status").value === true,
+        status: document.getElementById("status").value === true,
+        category: document.getElementById("category").value,
     }
     socket.emit("addProduct", product);
 };

@@ -34,13 +34,24 @@
   },
   {
     "title": "Prod 4",
-    "description": "desc prod 4",
-    "price": "451",
+    "description": "des prod 4",
+    "price": "4353",
     "thumbnail": "Sin Imagen",
-    "code": "sdfsfgs",
-    "stock": "2345",
-    "status": "cat prod 4",
-    "category": false,
+    "code": "adhghd",
+    "stock": "234",
+    "status": false,
+    "category": "category 4",
     "id": 4
+  },
+  {
+    "title": "Prod 5",
+    "description": "desc prod 5",
+    "price": "2342",
+    "thumbnail": "Sin Imagen",
+    "code": "dfghftff",
+    "stock": "876",
+    "status": false,
+    "category": "category 5",
+    "id": 5
   }
 ]

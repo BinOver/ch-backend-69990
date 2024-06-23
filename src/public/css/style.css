@@ -3,6 +3,11 @@ h1 {
     color: grey;
 }
 
+h2 {
+    text-align: center;
+    color: grey;
+}
+
 .containerProducts {
     display: flex;
     justify-content: space-between;
@@ -19,4 +24,10 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#containerProducts div {
+    border: 1px solid grey;
+    padding: 25px;
+
 }
