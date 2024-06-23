@@ -49,7 +49,7 @@ io.on("connection", async (socket) => {
     // Envio lista actualizada al cliente
     io.sockets.emit("products", await productManager.getProducts());
     // Recibimos "addProduct" desde el cliente
-    io.sockets.on("addProduct", async (product) => {
+    socket.on("addProduct", async (product) => {
         await productManager.addProduct(product);
         console.log(product);
         // Envio lista actualizada al cliente

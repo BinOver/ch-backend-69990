@@ -31,5 +31,16 @@
     "status": true,
     "category": "category 3",
     "id": 3
+  },
+  {
+    "title": "Prod 4",
+    "description": "desc prod 4",
+    "price": "451",
+    "thumbnail": "Sin Imagen",
+    "code": "sdfsfgs",
+    "stock": "2345",
+    "status": "cat prod 4",
+    "category": false,
+    "id": 4
   }
 ]
