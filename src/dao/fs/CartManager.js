@@ -1,7 +1,7 @@
 import {promises as fs} from "fs";
 
 export class CartManager {
-    static path = "./src/models/carts.json";
+    static path = "./src/dao/fs/data/carts.json";
     static lastCid = 0;
 
     constructor() {
