@@ -18,7 +18,7 @@ routerProd.get("/",async (req,res) => {
 });
 
 routerProd.get("/:pid", async (req,res) => {
-    const pid = parseInt(req.params.pid);
+    const pid = req.params.pid;
     const prod = await productManager.getProductById(pid);
     if(prod) {
         res.status(200).send(prod);

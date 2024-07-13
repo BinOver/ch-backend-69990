@@ -40,15 +40,15 @@ class ProductManager {
         }
     }
 
-    async updateProduct(id, product){
+    async updateProduct(id, updatedProduct){
         try {
-            const product = await ProductModel.findByIdAndUpdate(id, product);
-            if(!product) {
+            const updated = await ProductModel.findByIdAndUpdate(id, updatedProduct);
+            if(!updated) {
                 console.log("No se encuentra el producto.")
                 return false;
             }else {
                 console.log("Producto actualizado.");
-                return product;
+                return updated;
             }
         } catch (error) {
             console.log("Error al actualizar el producto");
@@ -56,14 +56,45 @@ class ProductManager {
         }
     }
 
-    async getProducts(limit){
+    async getProducts({limit = 10, page = 1, sort, query} = {}) {
         try {
-            const arrayProducts = ProductModel.find();
-            if(isNaN(limit)){
-                return arrayProducts;
-            }else {
-                //
-            }
+            const skip = (page - 1) * limit;
+            
+            let queryOptions = {};
+            if(query){
+                queryOptions = { category:query }
+            };
+
+            if(sort) {
+                if(sort === 'asc' || sort === 'desc'){
+                    sortOptions.price = sort === 'asc' ? 1:-1;
+                }
+            };
+
+            const sortOptions = {};
+            const products = await ProductModel
+                .find(queryOptions)
+                .sort(sortOptions)
+                .skip(skip)
+                .limit(limit)
+
+            const arrayProducts = await ProductModel.countDocuments(queryOptions);
+            const totalPages = Math.ceil(totalProducts / limit);
+            const hasPrevPage = page > 1;
+            const hasNextPage = page < totalPages;
+
+            return {
+                docs: products,
+                totalPages,
+                prevPage: hasPrevPage ? page -1 : null,
+                nextPage: hasNextPage ? page + 1 : null,
+                page,
+                hasPrevPage,
+                hasNextPage,
+                prevLink: hasPrevPage ? `/api/products?limit=${limit}&page=${page - 1}&sort=${sort}&query=${query}` : null,
+                nextLink: hasNextPage ? `/api/products?limit=${limit}&page=${page + 1}&sort=${sort}&query=${query}` : null,
+            };
+
         } catch (err) {
             console.log("Error al encontrar productos" + err);
             throw err;

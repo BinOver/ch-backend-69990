@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const colection = "products";
 
@@ -39,6 +40,8 @@ const productSchema = new mongoose.Schema({
         required: true
     },
 });
+
+productSchema.plugin(mongoosePaginate);
 
 const ProductModel = mongoose.model(colection, productSchema); 
 
