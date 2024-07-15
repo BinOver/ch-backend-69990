@@ -1,11 +1,13 @@
-import { Router } from "express";
+import express from "express";
 //import { CartManager } from "../dao/fs/CartManager.js"
 import CartManager from "../dao/db/CartManager-db.js";
 
-const routerCarts = Router();
+
+
+const routerCarts = express.Router();
 const cartManager = new CartManager();
 
-routerCarts.post("/", async (res,req) => {
+routerCarts.post("/", async (req,res) => {
     try {
         const newCart = await cartManager.createCart();
         res.json(newCart);
@@ -15,7 +17,7 @@ routerCarts.post("/", async (res,req) => {
     }
 });
 
-routerCarts.get("/:cid", async (req, res) => {
+routerCarts.get("/:cid", async (req,res) => {
     const cartId = req.params.cid;
     try {
         const cart = await cartManager.getCartById(cartId);

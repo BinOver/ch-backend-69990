@@ -62,24 +62,25 @@ class ProductManager {
             
             let queryOptions = {};
             if(query){
-                queryOptions = { category:query }
+                queryOptions = { category:query };
             };
 
+            const sortOptions = {};
             if(sort) {
                 if(sort === 'asc' || sort === 'desc'){
                     sortOptions.price = sort === 'asc' ? 1:-1;
                 }
             };
 
-            const sortOptions = {};
+            
             const products = await ProductModel
                 .find(queryOptions)
                 .sort(sortOptions)
                 .skip(skip)
-                .limit(limit)
+                .limit(limit);
 
             const arrayProducts = await ProductModel.countDocuments(queryOptions);
-            const totalPages = Math.ceil(totalProducts / limit);
+            const totalPages = Math.ceil(arrayProducts / limit);
             const hasPrevPage = page > 1;
             const hasNextPage = page < totalPages;
 

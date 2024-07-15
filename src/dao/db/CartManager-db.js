@@ -2,31 +2,14 @@
 import CartModel from "../models/cart.model.js";
 
 class CartManager {
-    async readCarts() {
-        try {
-            const cartsData = await fs.readFile(CartManager.path);
-            this.carts = JSON.parse(cartsData);
-            if (this.carts.length > 0) {
-                CartManager.lastCid = Math.max(...this.carts.map(cart => cart.id));
-            }
-        } catch (error) {
-            console.error("Error al cargar los carritos desde el archivo", error)
-            await this.saveCarts();
-        }
-    }
-
-    async saveCarts() {
-        await fs.writeFile(CartManager.path, JSON.stringify(this.carts, null, 2));
-    }
-
     async createCart() {
         try {
-            const newCart = new CartModel({products:[]});
+            const newCart = new CartModel({ products: [] });
             await newCart.save();
             return newCart;
         } catch (error) {
-            console.log("Error al crear carrito: " + error);
-            throw error;
+            console.error("Error al cargar los carritos desde el archivo", error)
+            await this.saveCarts();
         }
     }
 
@@ -34,7 +17,7 @@ class CartManager {
         try {
             const cart = await CartModel.findById(cartId);
             if (!cart){
-                throw new Error(`No existe un carrito con el id ${cartId}`);
+                console.log("Carrito no encontrado con ID " + cartId);
             }
             return cart;
         } catch (error) {
@@ -47,6 +30,7 @@ class CartManager {
         try {
             const cart = await this.getCartById(cartId);
             const existProduct = cart.products.find(item => item.product.toString() === productId);
+            
             if (existProduct) {
                 existProduct.quantity += quantity;
             }else {
