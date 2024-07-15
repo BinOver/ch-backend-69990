@@ -47,6 +47,38 @@ class CartManager {
             throw error;
         }
     }
+    
+    async deleteCartProductByPID(cartId, productId) {
+        try {
+            const cart = await this.getCartById(cartId);
+            console.log(cart)
+            if (cart) {
+                const indexToRemove = cart.products.findIndex(producto => producto._id.toString() === productId);
+                cart.products.splice(indexToRemove, 1);
+                await cart.save();
+                return cart
+            }
+        }
+        catch (error) {
+            console.error("Error al borrar producto del carrito.", error);
+            throw error;
+        }
+    };
+
+    async deleteCartByCID(cartId) {
+        try {
+            const cart = await this.getCartById(cartId);
+            if (cart) {
+                cart.products = [];
+                await cart.save();
+                return cart;
+            }
+        }
+        catch (error) {
+            console.error("Error al borrar carrito.", error);
+        }
+    };
+
 }
 
 export default CartManager;

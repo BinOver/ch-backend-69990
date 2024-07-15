@@ -36,9 +36,32 @@ routerCarts.post("/:cid/product/:pid", async (req, res) => {
         const updateCart = await cartManager.insertProductToCart(cartId,productId,quantity);
         res.json(updateCart.products);
     } catch (error) {
-        console.error("Error al agregar un producto al carrito", error)
+        console.error("Error al agregar un producto al carrito", error);
         res.status(500).json({ error: "Error interno del servidor" });
     }
-})
+});
+
+routerCarts.delete('/:cid/products/:pid', async (req,res) =>{
+    const cartId = req.params.cid;
+    const productId = req.params.pid;
+    try {
+        const deleteCartProduct = await cartManager.deleteCartProductByPID(cartId,productId);
+        res.json(deleteCartProduct.products);
+    } catch (error) {
+        console.error("Error al borrar producto del carrito", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+} );
+routerCarts.delete('/:cid',async (req,res) =>{
+    const cartId = req.params.cid;
+    try {
+        const deleteCart = await cartManager.deleteCartByCID(cartId);
+        res.json(deleteCart.products); 
+    } catch (error) {
+        console.error("Error al borrar producto del carrito", error);
+        res.status(500).json({ error: "Error interno del servidor" });  
+    }
+} );
 
 export default routerCarts;
