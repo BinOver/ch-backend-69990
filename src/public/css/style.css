@@ -9,9 +9,9 @@ h2 {
 }
 
 .containerProducts {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
 }
 
 .containerProducts div {
@@ -30,4 +30,11 @@ h2 {
     border: 1px solid grey;
     padding: 25px;
 
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

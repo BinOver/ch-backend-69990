@@ -8,8 +8,19 @@ const productManager = new ProductManager();
 routerViews.get("/", async (req, res) => {
     try {
         const products = await productManager.getProducts();
-        console.log(products)
-        res.render("home",{products})
+        const productsDocs = products.docs.map(p => {
+            const {_id, ...rest} = p.toObject();
+            return rest
+        });
+        res.render("home",{
+            products:productsDocs,
+            hasPrevPage: products.hasPrevPage, 
+            hasNextPage: products.hasNextPage,
+            prevPage: products.prevPage,
+            nextPage: products.nextPage,
+            currentPage: products.page,
+            totalPages: products.totalPages
+        })
     } catch (error) {
         res.status(500).send("Error interno del servidor");
     }
