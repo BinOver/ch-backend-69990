@@ -9,6 +9,9 @@
                 <p>Codigo: {{this.code}}</p>
                 <p>Stock: {{this.stock}}</p>
                 <p>Categoria: {{this.category}}</p>
+                <form action="/api/carts/66946f23ec00ffb0ea4007a6/product/{{this._id}}" method="POST" target="_self">
+                    <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+                </form>
             </div>
         {{/each}}
 </div>
