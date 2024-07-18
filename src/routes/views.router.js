@@ -7,12 +7,19 @@ const productManager = new ProductManager();
 
 routerViews.get("/", async (req, res) => {
     try {
-        const products = await productManager.getProducts();
+        const { page = 1, limit = 10, sort = '', query = '' } = req.query;
+
+        const products = await productManager.getProducts({
+            limit: parseInt(limit), 
+            page: parseInt(page),
+            sort,
+            query
+        });
+
         const productsDocs = products.docs.map(p => {
             const {_id, ...rest} = p.toObject();
             return rest
         });
-        console.log(products)
         res.render("home",{
             products:productsDocs,
             hasPrevPage: products.hasPrevPage, 
