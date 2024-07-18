@@ -12,12 +12,15 @@ routerViews.get("/", async (req, res) => {
             const {_id, ...rest} = p.toObject();
             return rest
         });
+        console.log(products)
         res.render("home",{
             products:productsDocs,
             hasPrevPage: products.hasPrevPage, 
             hasNextPage: products.hasNextPage,
             prevPage: products.prevPage,
             nextPage: products.nextPage,
+            prevLink: products.prevLink,
+            nextLink: products.nextLink,
             currentPage: products.page,
             totalPages: products.totalPages
         })
