@@ -53,5 +53,16 @@
     "status": false,
     "category": "category 5",
     "id": 5
+  },
+  {
+    "title": "TEST 2",
+    "description": "desc TEST 2",
+    "price": "134",
+    "thumbnail": "Sin Imagen",
+    "code": "dgdasdc23s",
+    "stock": "34",
+    "status": false,
+    "category": "TEST",
+    "id": 6
   }
 ]

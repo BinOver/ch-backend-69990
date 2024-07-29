@@ -19,14 +19,14 @@ routerProd.get("/",async (req,res) => {
         res.json({
             status:'success',
             payload: products,
-            totalPages: products.totalPages,
+            /* totalPages: products.totalPages,
             prevPage: products.prevPage,
             nextPage: products.nextPage,
             page: products.page,
             hasPrevPage: products.hasPrevPage,
             hasNextPage: products.hasNextPage,
             prevLink: products.hasPrevPage ? `/api/products?limit=${limit}&page=${products.prevPage}&sort=${sort}&query=${query}` : null,
-            nextLink: products.hasNextPage ? `/api/products?limit=${limit}&page=${products.nextPage}&sort=${sort}&query=${query}` : null,
+            nextLink: products.hasNextPage ? `/api/products?limit=${limit}&page=${products.nextPage}&sort=${sort}&query=${query}` : null, */
         });
 
     } catch(error){
@@ -57,7 +57,7 @@ routerProd.post("/", async (req,res) => {
 routerProd.put("/:id", async(req,res) => {
     const confirm = await productManager.updateProduct(req.params.id,req.body);
     if (confirm){
-        res.status(200).setDefaultEncoding("Producto actualizado correctamente.");
+        res.status(200).send("Producto actualizado correctamente.");
     } else {
         res.status(404).send("Producto ya existente.");
     }

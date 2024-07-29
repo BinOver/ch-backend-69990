@@ -14,7 +14,7 @@ class ProductManager {
         }
     }
 
-    async addProduct({title,description,price,img,code,stock,category,thumbnails}){
+    async addProduct({title,description,price,img,code,stock,category,thumbnails,status=true}){
         try {
             //validar code unico
             const existCode = await ProductModel.findOne({code:code});
@@ -30,7 +30,8 @@ class ProductManager {
                 code,
                 stock,
                 category,
-                thumbnails
+                thumbnails,
+                status
             })
             await newProduct.save();
             return true;
