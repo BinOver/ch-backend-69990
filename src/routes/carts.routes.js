@@ -17,16 +17,6 @@ routerCarts.post("/", async (req,res) => {
     }
 });
 
-/* routerCarts.put("/", async (req,res) => {
-    try {
-        const newCart = await cartManager.createCart();
-        res.json(newCart);
-    } catch (error) {
-        console.error ("Error al crear nuevo carrito", error);
-        res.status(500).json({ error: "Error internio del servidor" });
-    }
-}); */
-
 routerCarts.get("/:cid", async (req,res) => {
     const cartId = req.params.cid;
     try {
@@ -37,6 +27,35 @@ routerCarts.get("/:cid", async (req,res) => {
         res.status(500).json({error: "Error interno del servidor"});
     }
 });
+
+routerCarts.put("/:cid", async (req,res) => {
+    const cartId = req.params.cid;
+    const products = req.body;
+    try {
+        const cart = await cartManager.getCartById(cartId);
+        if (cart) {
+            products.forEach((newProduct) => {
+                const indexOfProduct = cart.products.findIndex((p) =>
+                    p.product._id.toString() === newProduct.product._id.toString());
+                if (indexOfProduct !== -1) {
+                    cart.products[indexOfProduct].quantity = newProduct.quantity;
+                } else {
+                    cart.products.push(newProduct);
+                }
+            });
+            res.status(200).send({ resultado: "OK", carrito: cart.products });
+        } else {
+            res
+                .status(404)
+                .send({ resultado: "Carrito no encontrado", carrito: cart });
+        }
+        await cart.save();
+    } catch (error) {
+        console.error("Error al obtener el carrito", error);
+        res.status(500).json({error: "Error interno del servidor"});
+    }
+});
+
 
 routerCarts.post("/:cid/product/:pid", async (req, res) => {
     const cartId = req.params.cid;
@@ -51,7 +70,7 @@ routerCarts.post("/:cid/product/:pid", async (req, res) => {
     }
 });
 
-/* routerCarts.put("/:cid/product/:pid", async (req, res) => {
+routerCarts.put("/:cid/product/:pid", async (req, res) => {
     const cartId = req.params.cid;
     const productId = req.params.pid;
     const quantity = req.body.quantity || 1;
@@ -62,7 +81,7 @@ routerCarts.post("/:cid/product/:pid", async (req, res) => {
         console.error("Error al agregar un producto al carrito", error);
         res.status(500).json({ error: "Error interno del servidor" });
     }
-}); */
+});
 
 routerCarts.delete('/:cid/products/:pid', async (req,res) =>{
     const cartId = req.params.cid;
