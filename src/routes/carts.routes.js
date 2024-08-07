@@ -32,24 +32,8 @@ routerCarts.put("/:cid", async (req,res) => {
     const cartId = req.params.cid;
     const products = req.body;
     try {
-        const cart = await cartManager.getCartById(cartId);
-        if (cart) {
-            products.forEach((newProduct) => {
-                const indexOfProduct = cart.products.findIndex((p) =>
-                    p.product._id.toString() === newProduct.product._id.toString());
-                if (indexOfProduct !== -1) {
-                    cart.products[indexOfProduct].quantity = newProduct.quantity;
-                } else {
-                    cart.products.push(newProduct);
-                }
-            });
-            res.status(200).send({ resultado: "OK", carrito: cart.products });
-        } else {
-            res
-                .status(404)
-                .send({ resultado: "Carrito no encontrado", carrito: cart });
-        }
-        await cart.save();
+        const cart = await cartManager.updateCart(cartId, products);
+        res.json(cart.products);
     } catch (error) {
         console.error("Error al obtener el carrito", error);
         res.status(500).json({error: "Error interno del servidor"});

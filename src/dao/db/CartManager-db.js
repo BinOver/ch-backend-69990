@@ -49,6 +49,34 @@ class CartManager {
             throw error;
         }
     }
+
+    async updateCart(cartId, products){
+        try {
+            const cart = await this.getCartById(cartId);
+            if (cart) {
+                products.forEach((newProduct) => {
+                    const indexOfProduct = cart.products.findIndex((p) =>
+                        p.product._id.toString() === newProduct.product._id.toString());
+                    if (indexOfProduct !== -1) {
+                        cart.products[indexOfProduct].quantity = newProduct.quantity;
+                    } else {
+                        cart.products.push(newProduct);
+                    }
+                });
+                res.status(200).send({ resultado: "OK", carrito: cart.products });
+            } else {
+                res
+                    .status(404)
+                    .send({ resultado: "Carrito no encontrado", carrito: cart });
+            }
+            cart.markModified("products");
+            await cart.save();
+            return cart;
+        } catch (error) {
+            console.error("Error al obtener el carrito", error);
+            res.status(500).json({error: "Error interno del servidor"});
+        }
+    }
     
     async deleteCartProductByPID(cartId, productId) {
         try {
