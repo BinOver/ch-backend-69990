@@ -7,6 +7,10 @@ import routerViews from "./routes/views.router.js";
 /* import { ProductManager } from "./dao/fs/ProductManager.js"; */
 import ProductManager from "./dao/db/ProductManager-db.js";
 import "./database.js";
+//
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import routerSessions from "./routes/sessions.routers.js"
 
 const app = express();
 const PORT = 8080;
@@ -14,7 +18,16 @@ const PORT = 8080;
 //Middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(express.static("./src/public")); 
+app.use(express.static("./src/public"));
+//
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl: "mongodb+srv://binover:coderhouse@cluster0.sdawg.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0"
+    }),
+    secret:"secretCoder",
+    resave:true,
+    saveUninitialized:true
+}))
 
 //Handlebars
 app.engine("handlebars", engine()); 
@@ -24,6 +37,8 @@ app.set("views", "./src/views");
 //Routes api
 app.use("/api/products", routerProd);
 app.use("/api/carts", routerCarts);
+/////Sessions
+app.use("/api/sessions", routerSessions);
 
 //Routes Views
 app.use("/",routerViews);

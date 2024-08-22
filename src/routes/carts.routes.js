@@ -2,8 +2,6 @@ import express from "express";
 //import { CartManager } from "../dao/fs/CartManager.js"
 import CartManager from "../dao/db/CartManager-db.js";
 
-
-
 const routerCarts = express.Router();
 const cartManager = new CartManager();
 
@@ -41,7 +39,7 @@ routerCarts.put("/:cid", async (req,res) => {
 });
 
 
-routerCarts.post("/:cid/product/:pid", async (req, res) => {
+routerCarts.post("/:cid/products/:pid", async (req, res) => {
     const cartId = req.params.cid;
     const productId = req.params.pid;
     const quantity = req.body.quantity || 1;
@@ -54,7 +52,7 @@ routerCarts.post("/:cid/product/:pid", async (req, res) => {
     }
 });
 
-routerCarts.put("/:cid/product/:pid", async (req, res) => {
+routerCarts.put("/:cid/products/:pid", async (req, res) => {
     const cartId = req.params.cid;
     const productId = req.params.pid;
     const quantity = req.body.quantity || 1;

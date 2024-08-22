@@ -71,6 +71,20 @@ routerViews.get("/carts/:cid", async (req, res) => {
     }
 });
 
+////
+
+routerViews.get("/login", (req, res) => {
+    res.render("login");
+});
+
+routerViews.get("/register", (req, res) => {
+    res.render("register");
+});
+
+routerViews.get("/profile", (req, res) => {
+    res.render("profile");
+});
+
 export default routerViews;
 
 
