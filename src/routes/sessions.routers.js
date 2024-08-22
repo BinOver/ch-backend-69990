@@ -7,7 +7,7 @@ routerSessions.post("/register",async (req, res) => {
     const {first_name, last_name, email,password,age} = req.body;
 
     try {
-        const existUser=userModel.findOne({ email: email });
+        const existUser = await userModel.findOne({ email: email });
         console.log(existUser);
         if(existUser) {
             return res.status(400).send("El correo electronico ya esta registrado");
@@ -16,7 +16,7 @@ routerSessions.post("/register",async (req, res) => {
         req.session.user ={...newUser,_doc};
         res.status(200).send("Usuario creado con exito");
     } catch (error) {
-        res.status(500).send("Error interno al crear usuario");
+        res.status(500).send("Error interno al crear usuario " + error);
     }
 });
 
