@@ -8,6 +8,7 @@ routerSessions.post("/register",async (req, res) => {
 
     try {
         const existUser=userModel.findOne({ email: email });
+        console.log(existUser);
         if(existUser) {
             return res.status(400).send("El correo electronico ya esta registrado");
         }
