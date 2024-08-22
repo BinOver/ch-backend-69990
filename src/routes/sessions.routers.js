@@ -8,7 +8,6 @@ routerSessions.post("/register",async (req, res) => {
 
     try {
         const existUser = await userModel.findOne({ email: email });
-        console.log(existUser);
         if(existUser) {
             return res.status(400).send("El correo electronico ya esta registrado");
         }
@@ -21,12 +20,13 @@ routerSessions.post("/register",async (req, res) => {
 });
 
 routerSessions.post("/login",async(req,res) => {
-    const {email,passwd} = req.body;
+    const {email,password} = req.body;
 
     try {
         const user = await userModel.findOne({email: email});
+        console.log(user);
         if(user) {
-            if(user.password = passwd) {
+            if(user.password == password) {
                 req.session.user = {
                     email: user.email,
                     age: user.age,
